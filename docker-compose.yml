@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  app:
+    image: anbiyoumna/employee-management
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:oracle:thin:@db:1521:xe
+      - SPRING_DATASOURCE_USERNAME=management
+      - SPRING_DATASOURCE_PASSWORD=1234
+    depends_on:
+      - db
+
+  db:
+    image: gvenzl/oracle-xe:21-slim
+    environment:
+      - ORACLE_PASSWORD=1234
+    ports:
+      - "1521:1521"
